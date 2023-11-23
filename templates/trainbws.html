@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+  <div>
+
+    {% include 'nav.html' %}
+  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div style="float: left;margin-left:10px;flex:1;"><h2>National Train Enquiry System</h2></div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <!-- <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li> -->
+                  <li class="nav-item">
+                    <a class="nav-link" href= "{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href= "{% url 'index' %}">Trains Between Stations</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Book Ticket</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pnrst' %}">Know your PNR status</a>
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                  </li> -->
+                </ul>
+              </div>
+        </div>
+    </nav>
+    <form name="frmTBS" method="POST" onsubmit="return false;">
+        <table class="table table-condensed ">	
+            <tbody><tr height="24">
+            <td align="left" style="border:none;">
+                <label for="jFromStationInput">From Station<font color="red">*</font></label>
+                <div class="input-group">
+                <input name="jFromStationInput" type="text" class="form-control ui-autocomplete-input" placeholder="From Station" id="jFromStationInput" onfocus="focustxt=this;" value="" maxlength="25" autocomplete="off" style="min-width: 100px; max-width: 100%;">
+                </div>
+                </td>
+                <td nowrap="" align="left" style="border: none;padding-left: 1px;width:120px;padding-top:18px;">&nbsp;&nbsp;
+                <br>
+                <span class="input-group-btn" style="display: inline">
+                    <input type="button" class="btn btn-primary" style="left: -1px; font-weight: bolder;" value="X" onclick="document.getElementById('jFromStationInput').value='';">
+                    </span>
+                </td>
+            </tr>
+            <tr style="border:none;"><td colspan="2" align="center" style="border:none;padding:0px;"><input type="button" class="btn btn-primary" name="swap" title="Swap" onclick="onSwapStation();" style="background-image:url(images/transmit_icon_white.png);background-repeat:no-repeat; background-position: 50% 50%; padding-left:20px;padding-right:20px;"></td></tr>
+            
+            <tr height="24">
+            <td align="left" style="border:none;">
+                <label for="jToStationInput">To Station<font color="red">*</font></label>
+                <div class="input-group">
+                <input name="jToStationInput" type="text" class="form-control ui-autocomplete-input" id="jToStationInput" onfocus="focustxt=this;" placeholder="To Station" value="" maxlength="25" autocomplete="off" style="min-width: 100px; max-width: 100%;">
+                </div>
+                </td>
+                <td nowrap="" align="left" style="border: none;padding-left: 1px;width:120px;padding-top:18px;">&nbsp;&nbsp;
+                <br>
+                <span class="input-group-btn" style="display: inline">
+                    <input type="button" class="btn btn-primary" style="left: -1px; font-weight: bolder;" value="X" onclick="document.getElementById('jToStationInput').value='';">
+                    </span>
+                </td>
+            </tr>
+            <tr height="24" class="active">		
+                <td align="left" style="border: none;">
+                <label for="trainType">Train Type</label>
+                    <select name="trainType" class="form-control">
+                                
+                    
+                        <option value="XXX">All Types</option>	
+                    
+                        <option value="MEXGRP">Mail Express</option>	
+                    
+                        <option value="PASGRP">Passenger</option>	
+                    
+                        <option value="VNDBGRP">Vande Bharat</option>	
+                    
+                        <option value="MEXPAS">Mail Express &amp; Passenger</option>	
+                    
+                        <option value="TEJGRP">Tejas</option>	
+                    
+                        <option value="RAJ">Rajdhani</option>	
+                    
+                        <option value="PEXP">Parcel Express Trains</option>	
+                    
+                        <option value="HUMSFRGRP">Humsafar</option>	
+                    
+                        <option value="GBR">Garib Rath</option>	
+                    
+                        <option value="HSP">Holiday Special</option>	
+                    
+                        <option value="PRMGRP">Premium Group</option>	
+                    
+                        <option value="DDCKGRP">Double Decker</option>	
+                    
+                        <option value="JSH">Jan Shatabdi</option>	
+                    
+                        <option value="SHT">Shatabdi</option>	
+                    
+                        <option value="MEMU">MEMU</option>	
+                    
+                        <option value="DRNT">Duranto</option>	
+                    
+                        <option value="SUMSPL">Summer Special</option>	
+                    
+                        <option value="MSPC">Mail Express Special</option>	
+                    
+                        <option value="PSPC">Passenger Special</option>	
+                    
+                        <option value="TODGRP">Train on Demand</option>	
+                    
+                        <option value="RBUS">Rail Bus</option>	
+                    
+                        <option value="TRST">Tourist Train</option>	
+                    
+                        <option value="DMU">DMU</option>	
+                    
+                        <option value="EMU">Suburban/EMU</option>	
+                        
+                </select></td>
+                <td style="border: none;">&nbsp;</td>
+            </tr>
+            <tr height="20" class="active">
+                <td nowrap="" align="center" style="font-family:Calibri;font-size:8pt;color:#0000FF; border: none;">
+                <div class="input-group">
+                    &nbsp;<input class="btn btn-primary" type="button" name="find" value="Get Trains" onclick="onTBS();">
+                    &nbsp;<input class="btn btn-default" type="button" name="clear" value="Clear" onclick="clearTBSForm();" style="margin-left: 5px;">
+                    </div>
+                </td>				       
+            </tr>
+            
+        </tbody></table>
+        
+        
+        <div id="splashScreen" style="position:absolute;visibility:hidden;z-index:5;top:47%;left:47%;">
+            <!--<span style="float:left;filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75;">-->
+            <img src="images/350.gif" border="0" width="40" height="40">
+            <!--</span>-->
+        </div>
+        <!-- Message Section -->
+        
+        
+        <!-- Message Section -->
+        
+        <table style="display: none;"></table>
+        
+        
+        <!-- /37179215/MNTES_TRAIN_BET_STATION_TOP -->
+        
+        
+        
+        
+       
+       
+        <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-89952719-2"></script>
+       
+        
+        </form>
+</body>
+</html>
